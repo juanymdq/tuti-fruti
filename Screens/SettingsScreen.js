@@ -1,31 +1,23 @@
-import React from 'react'
-import {View, Text, CheckBox} from 'react-native'
+import React from 'react';
+import { createStackNavigator} from '@react-navigation/stack'
+import SettingsScreenEncabezados from './SettingsScreenEncabezados'
+import SettingsScreenConfigGeneral from './SettingsScreenConfigGeneral'
 
-export default class SettingsScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-          isChecked: true,
-        };
-      }
+const Tab = createStackNavigator();
 
-    toggleChange = () => {
-        this.setState({
-          isChecked: !this.state.isChecked,
-        });
-      }
+const TabsConfig = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Configuracion general" component={SettingsScreenConfigGeneral} />
+     <Tab.Screen name="ConfigEncabezados" component={SettingsScreenEncabezados} />
+    </Tab.Navigator>
+  );
+}
 
-    render() {
-        return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text>Settings!</Text>
-                <CheckBox
-                    title="Checkckbox"
-                    style={{flex: 1, padding: 10}}
-                    checked={this.state.isChecked}
-                    onChange={this.toggleChange}
-                />
-            </View>
-        )
-    }
+export default class SettingsScreen extends React.Component {  
+  render() {
+    return (      
+        <TabsConfig />    
+    );
+  }
 }

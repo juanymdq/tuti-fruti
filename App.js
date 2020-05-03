@@ -5,8 +5,20 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import SettingsScreen from './Screens/SettingsScreen'
 import HelpScreen from './Screens/HelpScreen'
 import TutiFrutiScreen from './Screens/TutiFrutiScreen'
+import {Ionicons} from 'react-native-vector-icons';
 
 const Tab = createBottomTabNavigator();
+
+TutiFrutiScreen.navigationOptions = {
+  tabBarIcon: ({ tintColor}) => (
+    <Ionicons
+      name= {'ios-contacts'}
+      size={25}
+      color={tintColor}
+    />
+  )
+}
+
 
 function MyTabs() {
   return (
@@ -17,9 +29,6 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
-
-const A = 65 // código ASCII del carácter.
-const newArray = []
 
 export default class App extends React.Component {  
   render() {
