@@ -1,10 +1,13 @@
 import React from 'react';
-import {Alert, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {Alert, StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
+import { useNavigation, NavigationContainer } from '@react-navigation/native';
+
+import PlayTutiFrutti from './PlayTutiFrutti'
 
 const A = 65 // código ASCII del carácter.
 const newArray = []
 
-export default class TutiFrutiScreen extends React.Component {
+export default class GenerarLetra extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -35,7 +38,7 @@ export default class TutiFrutiScreen extends React.Component {
       //es decir, "elimina" la letra del array letters
       const result = this.state.letters.filter(letter => letter != letra);
       //console.log(result)
-      this.setState({letters: result})//actualiza el array de estado letters
+      this.setState({letters: result})//actualiza el array de estado letters      
     }
   }
 
@@ -45,22 +48,27 @@ export default class TutiFrutiScreen extends React.Component {
     this.setState({letters: Array.from({length: 26}, (_, i) => String.fromCharCode(A + i))})
     this.setState({ count: 0 })
     this.setState({ randomLetter: null })
-  }
+  } 
 
   render() {
     return (
       <View style={styles.cuerpo}>
         <View>
-          <Text style={styles.titulo}>TUTI FRUTI</Text>
+          <Text style={styles.titulo}>GENERAR LETRA ALEATORIA</Text>
           <Text style={styles.tituloLetrasGeneradas}>Letras Restantes</Text>
           <Text style={styles.arrayLetrasGeneradas}>{this.state.letters}</Text>
           <View>          
             <Text style={styles.letra}>{this.state.randomLetter}</Text>
             <View style={styles.viewBotones}>
-              <TouchableOpacity style={styles.boton1} onPress={this.handleClick}>                  
+              <TouchableOpacity style={styles.botonGenerar} onPress={this.handleClick}>                  
                 <Text>Generar Letra</Text>                  
-              </TouchableOpacity> 
-              <TouchableOpacity style={styles.boton2} onPress={this.resetearLetras} >                
+              </TouchableOpacity>               
+              <TouchableOpacity 
+                style={styles.botonComenzar}
+                onPress={() => this.props.navigation.navigate("Play", {letra: this.state.randomLetter})}>          
+                <Text>Comenzar!!!</Text>        
+              </TouchableOpacity>  
+              <TouchableOpacity style={styles.botonResetear} onPress={this.resetearLetras}>                
                 <Text>Resetear</Text>            
               </TouchableOpacity>     
             </View>    
@@ -76,11 +84,11 @@ export default class TutiFrutiScreen extends React.Component {
 
 const styles = StyleSheet.create({
   cuerpo: {
-    paddingTop: 20,
+    paddingTop: 5,
     alignItems: 'stretch',
   },
   titulo: {
-    fontSize: 50,
+    fontSize: 20,
     alignContent: 'center',
     alignSelf: 'center',
     color: 'red',
@@ -109,8 +117,8 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent: 'center',
   },
-  boton1: {
-    marginRight: 40,
+  botonGenerar: {
+    marginRight: 5,
     borderWidth:1,
     borderColor:'rgba(0,0,0,0.2)',
     alignItems:'center',
@@ -121,7 +129,8 @@ const styles = StyleSheet.create({
     borderRadius:100,
     alignSelf: 'center',
   },
-  boton2: {
+  botonResetear: {
+    marginRight: 5,
     borderWidth:1,
     borderColor:'rgba(0,0,0,0.2)',
     alignItems:'center',
@@ -129,6 +138,18 @@ const styles = StyleSheet.create({
     width:100,
     height:100,
     backgroundColor:'#F9120B',
+    borderRadius:100,
+    alignSelf: 'center',
+  },
+  botonComenzar: {
+    marginRight: 5,
+    borderWidth:1,
+    borderColor:'rgba(0,0,0,0.2)',
+    alignItems:'center',
+    justifyContent:'center',
+    width:100,
+    height:100,
+    backgroundColor:'green',
     borderRadius:100,
     alignSelf: 'center',
   },

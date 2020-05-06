@@ -41,7 +41,7 @@ export default class SettingsScreenEncabezados extends React.Component {
 
   render() {
     return (
-      <ScrollView style={{flex: 1, backgroundColor: 'gray'}}>
+      <ScrollView style={{flex: 1}}>
         {this.renderWordList()}
       </ScrollView>
     );

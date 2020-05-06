@@ -6,7 +6,7 @@ const GoEncabezados = ({ navigation }) => {
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Button
           title="Ir a Config Encabezados"
-          onPress={() => navigation.navigate('ConfigEncabezados')}
+          onPress={() => navigation.navigate('Configuracion Encabezados')}
         />
       </View>
     );

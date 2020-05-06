@@ -1,42 +1,49 @@
-import React from 'react';
-import {Alert, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native'
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+
+import HomeScreen from './Screens/HomeScreen'
+import HomeTutiFrutti from './Screens/HomeTutiFrutti'
 import SettingsScreen from './Screens/SettingsScreen'
 import HelpScreen from './Screens/HelpScreen'
-import TutiFrutiScreen from './Screens/TutiFrutiScreen'
-import {Ionicons} from 'react-native-vector-icons';
+
 
 const Tab = createBottomTabNavigator();
 
-TutiFrutiScreen.navigationOptions = {
-  tabBarIcon: ({ tintColor}) => (
-    <Ionicons
-      name= {'ios-contacts'}
-      size={25}
-      color={tintColor}
-    />
-  )
-}
-
-
-function MyTabs() {
+export default function App() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Tuti Frutti" component={TutiFrutiScreen} />
-      <Tab.Screen name="Settings" component={SettingsScreen} />
-      <Tab.Screen name="Help" component={HelpScreen} />
-    </Tab.Navigator>
-  );
-}
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
 
-export default class App extends React.Component {  
-  render() {
-    return (      
-        <NavigationContainer>
-        <MyTabs />
-      </NavigationContainer>
-      
-    );
-  }
+            if (route.name === 'Home') {
+              iconName = focused ? 'ios-home' : 'ios-home';
+            }  else if (route.name === 'HomeTutiFrutti') {
+                iconName = focused ? 'ios-medal' : 'ios-medal';
+            } else if (route.name === 'Settings') {
+              iconName = focused ? 'ios-construct' : 'ios-construct';
+            } else if (route.name === 'Help') {
+              iconName = focused ? 'ios-help-circle' : 'ios-help-circle';
+            }
+
+            // You can return any component that you like here!
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'tomato',
+          inactiveTintColor: 'gray',
+        }}
+      >
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="HomeTutiFrutti" component={HomeTutiFrutti} />
+        <Tab.Screen name="Settings" component={SettingsScreen} />
+        <Tab.Screen name="Help" component={HelpScreen} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
 }
