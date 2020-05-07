@@ -62,12 +62,12 @@ export default class GenerarLetra extends React.Component {
             <View style={styles.viewBotones}>
               <TouchableOpacity style={styles.botonGenerar} onPress={this.handleClick}>                  
                 <Text>Generar Letra</Text>                  
-              </TouchableOpacity>               
+              </TouchableOpacity> 
               <TouchableOpacity 
                 style={styles.botonComenzar}
                 onPress={() => this.props.navigation.navigate("Play", {letra: this.state.randomLetter})}>          
                 <Text>Comenzar!!!</Text>        
-              </TouchableOpacity>  
+              </TouchableOpacity>             
               <TouchableOpacity style={styles.botonResetear} onPress={this.resetearLetras}>                
                 <Text>Resetear</Text>            
               </TouchableOpacity>     
@@ -97,10 +97,13 @@ const styles = StyleSheet.create({
   letra: {
     borderWidth: 1,
     borderColor:'rgba(0,0,0,0.2)',
-    borderRadius:200,
-    fontSize: 120,
-    alignContent: 'center',
+    width: 150,
+    height: 150,
+    fontSize: 120,  
+    marginTop: 10,
+    marginBottom: 10,
     alignSelf: 'center',
+    textAlign: 'center'
   },
   tituloLetrasGeneradas: {
     marginTop: 10,
