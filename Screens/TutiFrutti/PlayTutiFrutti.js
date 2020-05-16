@@ -1,10 +1,11 @@
 import React from 'react'
 import {ScrollView, StyleSheet, View, Text, TextInput, Image} from 'react-native'
 import SettingsScreenEncabezados from '../SettingsScreenEncabezados'
+import {CamposTutiFrutti} from './CamposTutiFrutti'
 
 const styles = StyleSheet.create({
-    container: {
-        borderWidth: 1,
+    container: {        
+        marginBottom: 75,
     },
     textTitulo: {
         alignSelf: 'center',       
@@ -32,7 +33,9 @@ const styles = StyleSheet.create({
     },
     countdown: {
         marginTop: 10,       
-        alignSelf: 'center',         
+        alignSelf: 'center', 
+        borderBottomWidth: 1,
+        borderBottomColor: 'green',
     },
 })
 
@@ -48,8 +51,8 @@ export default class PlayTutiFrutti extends React.Component {
             isEditable: true,          
             nombre: '',
             pais: '',
-            minutes: 0,
-            seconds: 5,
+            minutes: 5,
+            seconds: 0,
         }
     }
 
@@ -95,54 +98,11 @@ export default class PlayTutiFrutti extends React.Component {
                         }
                     </Text>
                 </View>
-                <ScrollView>
-                    
-                    <View style={styles.viewOpciones}>
-                        <View style={styles.viewPalabra}>
-                            <Text>Nombres</Text>
-                            <TextInput                                
-                                placeholder={`Ingrese un nombre con letra ${this.state.letraRandom}`}
-                                onChangeText={value => this.setState({nombre: value.toUpperCase()})}                                
-                                editable={this.state.isEditable}
-                            />                            
-                        </View>
-                        <View style={styles.viewImagen}>
-                            { this.state.nombre != '' ?
-                            <Image 
-                                style={styles.tinyLogo} 
-                                source={
-                                    this.state.nombre.charAt(0) != this.state.letraRandom
-                                    ? require('../imagenes/cancel.png')
-                                    : require('../imagenes/checked.png')                                    
-                                }
-                            />
-                            : <Image />
-                            } 
-                        </View>
-                    </View>
-                    <View style={styles.viewOpciones}>
-                        <View style={styles.viewPalabra}>
-                            <Text>Paises</Text>
-                            <TextInput 
-                                placeholder={`Ingrese un país con letra ${this.state.letraRandom}`}
-                                onChangeText={value => this.setState({pais: value.trim()})}                                
-                                editable={this.state.isEditable}
-                            />                            
-                        </View>
-                        <View style={styles.viewImagen}>
-                        { this.state.pais != '' ?
-                            <Image 
-                                style={styles.tinyLogo} 
-                                source={
-                                    this.state.pais.charAt(0) != this.state.letraRandom
-                                    ? require('../imagenes/cancel.png')
-                                    : require('../imagenes/checked.png')                                    
-                                }
-                            />
-                            : <Image />
-                            } 
-                        </View>
-                    </View>
+                <ScrollView>                    
+                    <CamposTutiFrutti 
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
                 </ScrollView>
             </View>
         )

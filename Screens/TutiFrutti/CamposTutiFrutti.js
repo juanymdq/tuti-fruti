@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { StyleSheet, View, TextInput, Text, Image } from 'react-native'
 
-//import {words} from './Words'
+import {words} from './Words'
 
 const styles = StyleSheet.create({
     container: {
@@ -41,51 +41,43 @@ const styles = StyleSheet.create({
 
 
 export const CamposTutiFrutti = (props) => {    
-    const [valueText, setValueText] = React.useState({
-        valor: '',
-    })
     
-    const handleChangeInput = (event) => {
-        //destructurin de los valores enviados por el metodo onchange de cada input     
-        //setValueText(valueText= event.target)   
-        //setValueText(prevState => ({
-        //    ...prevState, valor: event.target }))
-        //console.log('valor: ' + JSON.stringify(valueText))
+    const [wordsState] = useState(words)
+
+    const viewImagen = (event) => {
         console.log(event)
+        if(event != props.letraRandom){
+            <Image
+                style={styles.tinyLogo}
+                source={require('../imagenes/cancel.png')}
+            />
+        }else{ 
+            <Image
+                style={styles.tinyLogo}
+                source={require('../imagenes/checked.png')}
+            />                 
+        }        
     }
 
-
-    const wList = props.words.map((word) => 
-        <View style={styles.viewOpciones}>                        
-            <View style={styles.viewPalabra}>
-                <Text>{word.text}</Text>
-                <TextInput  
-                    key={word.id}  
-                    name={word.text}                            
-                    placeholder={`Ingrese un nombre con letra ${props.letraRandom}`}
-                    onChangeText={handleChangeInput}                        
-                    editable={props.isEditable}
-                    
-                   
-                />                                             
-            </View>           
-            <View  style={styles.viewImagen}>
-                {//valor != '' ?//&& word.id === this.state.valueId
-                <Image 
-                    key={word.id}
-                    style={styles.tinyLogo} 
-                    source={require('../imagenes/cancel.png')
-                        //valor.charAt(0) != props.letraRandom
-                        //? require('../imagenes/cancel.png')            
-                        //: require('../imagenes/checked.png')
-                    }
-                />
-                
-                } 
-            </View>
-        </View>        
+    const wordList = wordsState.map((word) =>                                       
+        <View style={styles.viewPalabra}>
+            <Text>{word.text}</Text>
+            <TextInput  
+                key={word.id}  
+                name={word.text}                            
+                placeholder={`Ingrese un/a ${word.text} con letra ${props.letraRandom}`}
+                onChangeText={viewImagen}                        
+                editable={props.isEditable}
+            />                                             
+        </View>                      
+              
     )
-    return wList
+    return (
+        <View>
+            {wordList}
+            {viewImagen}
+        </View> 
+    )
 }
 
 

@@ -1,24 +1,16 @@
 import React, { Component} from 'react';
 import {Dimensions, StyleSheet, Switch, Text, View, ScrollView} from 'react-native';
 
-const { height, width } = Dimensions.get('window');
+import {words} from './TutiFrutti/Words'
+
+
 
 export default class SettingsScreenEncabezados extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      words: [
-        { id: 1, text: 'Nombres', toggle:false}, 
-        { id: 2, text: 'Colores', toggle:false}, 
-        { id: 3, text: 'Paises', toggle:false},
-        { id: 4, text: 'Marcas', toggle:false},
-        { id: 5, text: 'Peliculas', toggle:false},
-        { id: 6, text: 'Animales', toggle:false},
-        { id: 7, text: 'Comidas', toggle:false},
-        { id: 8, text: 'Frutas', toggle:false},
-        { id: 9, text: 'Actores', toggle:false},
-      ]
+      words,
     }
   };
 
