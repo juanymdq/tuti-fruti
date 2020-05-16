@@ -96,6 +96,7 @@ export default class PlayTutiFrutti extends React.Component {
                     </Text>
                 </View>
                 <ScrollView>
+                    
                     <View style={styles.viewOpciones}>
                         <View style={styles.viewPalabra}>
                             <Text>Nombres</Text>
