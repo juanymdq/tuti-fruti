@@ -1,12 +1,7 @@
 import React, {useState} from 'react'
 import { StyleSheet, View, TextInput, Text, Image } from 'react-native'
 
-import {words} from './Words'
-
-const styles = StyleSheet.create({
-    container: {
-        borderWidth: 1,
-    },
+const styles = StyleSheet.create({    
     textTitulo: {
         alignSelf: 'center',       
     },
@@ -35,91 +30,62 @@ const styles = StyleSheet.create({
         marginTop: 10,       
         alignSelf: 'center',         
     },
+    inputcolorBlue: {
+        backgroundColor: '#5A9791'
+    },
+    inputcolorGreen: {
+        backgroundColor: '#6E975A'
+    },
+    inputcolorRed: {
+        backgroundColor: '#975A5F'
+    },
+    
 })
 
-
-
-
-export const CamposTutiFrutti = (props) => {    
+export default class CamposTutiFrutti extends React.Component {    
     
-    const [wordsState] = useState(words)
-
-    const viewImagen = (event) => {
-        console.log(event)
-        if(event != props.letraRandom){
-            <Image
-                style={styles.tinyLogo}
-                source={require('../imagenes/cancel.png')}
-            />
-        }else{ 
-            <Image
-                style={styles.tinyLogo}
-                source={require('../imagenes/checked.png')}
-            />                 
-        }        
+    constructor(props) {
+        super(props)
+        this.state = {
+            valueText: '',
+        }
     }
 
-    const wordList = wordsState.map((word) =>                                       
-        <View style={styles.viewPalabra}>
-            <Text>{word.text}</Text>
-            <TextInput  
-                key={word.id}  
-                name={word.text}                            
-                placeholder={`Ingrese un/a ${word.text} con letra ${props.letraRandom}`}
-                onChangeText={viewImagen}                        
-                editable={props.isEditable}
-            />                                             
-        </View>                      
+    render() {
+        return (            
+            <View style={styles.viewOpciones}>                        
+                <View style={styles.viewPalabra}>
+                    <Text>{this.props.nombre}</Text>
+                    <TextInput 
+                        style={
+                            this.state.valueText === ''
+                            ? styles.inputcolorBlue
+                            : (this.state.valueText.charAt(0) === this.props.letraRandom)
+                            ? styles.inputcolorGreen
+                            :styles.inputcolorRed
+                        }                                            
+                        placeholder={`Ingrese ${this.props.nombre} con letra ${this.props.letraRandom}`}
+                        onChangeText={value => this.setState({valueText: value})}
+                        editable={this.props.isEditable}
+                    />                                             
+                </View>           
+                <View  style={styles.viewImagen}>  
+                    {this.state.valueText != ''             
+                    ? <Image                     
+                        style={styles.tinyLogo} 
+                        source={
+                            this.state.valueText.charAt(0) != this.props.letraRandom
+                            ? require('../imagenes/cancel.png')            
+                            : require('../imagenes/checked.png')
+                        }
+                        />
+                    : <Image/>
+                    }
+                </View>
+            </View> 
               
-    )
-    return (
-        <View>
-            {wordList}
-            {viewImagen}
-        </View> 
-    )
+        )
+    }
+   
 }
 
-
-
-          
-
-
-//---------------------------------------------------------------------
-/*
-render () {
-    const wList = this.state.words.map((word) => 
-        <View style={styles.viewOpciones}>                        
-            <View style={styles.viewPalabra}>
-                <Text>{word.text}</Text>
-                <TextInput  
-                    key={word.id}                              
-                    placeholder={`Ingrese un nombre con letra ${this.props.letraRandom}`}
-                    onChangeText={value => 
-                        {
-                            this.setState({valueText: value.toUpperCase()})
-                            
-                        }
-                    }                                                             
-                    editable={this.props.isEditable}
-                />                                             
-            </View>
-            {console.log(word.id)}
-            <View  style={styles.viewImagen}>
-                {this.state.valueText != '' ?//&& word.id === this.state.valueId
-                <Image 
-                    key={word.id}
-                    style={styles.tinyLogo} 
-                    source={
-                        this.state.valueText.charAt(0) != this.props.letraRandom
-                        ? require('../imagenes/cancel.png')            
-                        : require('../imagenes/checked.png')
-                    }
-                />
-                : <Image />
-                } 
-            </View>
-        </View>        
-    )
-    return wList
-}*/

@@ -1,41 +1,34 @@
 import React from 'react'
-import {ScrollView, StyleSheet, View, Text, TextInput, Image} from 'react-native'
-import SettingsScreenEncabezados from '../SettingsScreenEncabezados'
-import {CamposTutiFrutti} from './CamposTutiFrutti'
+import {ScrollView, StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+
+import CamposTutiFrutti from './CamposTutiFrutti'
 
 const styles = StyleSheet.create({
     container: {        
-        marginBottom: 75,
+        marginBottom: 120,
     },
     textTitulo: {
         alignSelf: 'center',       
-    },
-    viewOpciones: {
-       flexDirection: 'row',
-    },
-    viewPalabra: {
-        marginTop: 20,
-        borderWidth: 1,
-        width: 250,        
-    },
-    viewImagen: {        
-        marginTop: 25,
-        marginLeft: 30,
-        width: 30,
-        height: 40,
-    },
-    textOpciones: {
-
-    },
-    tinyLogo: {
-        width: 40,
-        height: 40,
-    },
+    },    
     countdown: {
-        marginTop: 10,       
+        marginTop: 5,       
         alignSelf: 'center', 
         borderBottomWidth: 1,
         borderBottomColor: 'green',
+    },
+    boton: {
+        marginRight: 5,
+        marginTop: 5,
+        marginBottom: 5,
+        borderWidth:1,
+        borderColor:'rgba(0,0,0,0.2)',
+        alignItems:'center',
+        justifyContent:'center',
+        width:190,
+        height:40,
+        borderRadius:6,
+        backgroundColor:'#5F8F62',       
+        alignSelf: 'center',
     },
 })
 
@@ -48,9 +41,7 @@ export default class PlayTutiFrutti extends React.Component {
         console.log(props)       
         this.state = {
             letraRandom: null,  
-            isEditable: true,          
-            nombre: '',
-            pais: '',
+            isEditable: true,
             minutes: 5,
             seconds: 0,
         }
@@ -100,10 +91,49 @@ export default class PlayTutiFrutti extends React.Component {
                 </View>
                 <ScrollView>                    
                     <CamposTutiFrutti 
+                        nombre='Nombres'
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
+                    <CamposTutiFrutti 
+                        nombre='Colores'
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
+                    <CamposTutiFrutti 
+                        nombre='Países'
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
+                    <CamposTutiFrutti 
+                        nombre='Marcas'
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
+                    <CamposTutiFrutti 
+                        nombre='Películas'
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
+                    <CamposTutiFrutti 
+                        nombre='Animales'
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
+                    <CamposTutiFrutti 
+                        nombre='Frutas'
+                        letraRandom={this.state.letraRandom} 
+                        isEditable={this.state.isEditable} 
+                    />
+                    <CamposTutiFrutti 
+                        nombre='Actores'
                         letraRandom={this.state.letraRandom} 
                         isEditable={this.state.isEditable} 
                     />
                 </ScrollView>
+                <TouchableOpacity style={styles.boton} onPress={this.resetearLetras}>                
+                    <Text>Basta para mí!!!</Text>            
+                </TouchableOpacity>   
             </View>
         )
     }
