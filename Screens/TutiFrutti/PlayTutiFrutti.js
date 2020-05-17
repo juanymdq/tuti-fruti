@@ -2,6 +2,7 @@ import React from 'react'
 import {ScrollView, StyleSheet, View, Text, TouchableOpacity} from 'react-native'
 
 import CamposTutiFrutti from './CamposTutiFrutti'
+import {words} from './Words'
 
 const styles = StyleSheet.create({
     container: {        
@@ -71,6 +72,10 @@ export default class PlayTutiFrutti extends React.Component {
             } 
         }, 1000)
     }
+
+    getScore = () => {
+
+    }
    
     render() { 
         const { minutes, seconds } = this.state       
@@ -90,7 +95,26 @@ export default class PlayTutiFrutti extends React.Component {
                     </Text>
                 </View>
                 <ScrollView>                    
-                    <CamposTutiFrutti 
+                    {words.map((word) => 
+                        <CamposTutiFrutti 
+                            nombre={word.text}
+                            letraRandom={this.state.letraRandom} 
+                            isEditable={this.state.isEditable} 
+                        />
+                        )
+                    }
+                </ScrollView>
+                <TouchableOpacity style={styles.boton} onPress={this.resetearLetras}>                
+                    <Text>Basta para mí!!!</Text>            
+                </TouchableOpacity>   
+            </View>
+        )
+    }
+}
+
+//-------------------------------------------------
+/*
+<CamposTutiFrutti 
                         nombre='Nombres'
                         letraRandom={this.state.letraRandom} 
                         isEditable={this.state.isEditable} 
@@ -130,12 +154,4 @@ export default class PlayTutiFrutti extends React.Component {
                         letraRandom={this.state.letraRandom} 
                         isEditable={this.state.isEditable} 
                     />
-                </ScrollView>
-                <TouchableOpacity style={styles.boton} onPress={this.resetearLetras}>                
-                    <Text>Basta para mí!!!</Text>            
-                </TouchableOpacity>   
-            </View>
-        )
-    }
-}
-    
+*/
