@@ -38,11 +38,12 @@ const styles = StyleSheet.create({
 export default class PlayTutiFrutti extends React.Component {
 
     constructor(props) {
-        super(props) 
-        console.log(props)       
+        super(props)        
         this.state = {
             letraRandom: null,  
-            isEditable: true,
+            isEditable: true, 
+            wordCorrect: 0,
+            wordWrong: 0,          
             minutes: 5,
             seconds: 0,
         }
@@ -74,7 +75,7 @@ export default class PlayTutiFrutti extends React.Component {
     }
 
     getScore = () => {
-
+     
     }
    
     render() { 
@@ -99,12 +100,13 @@ export default class PlayTutiFrutti extends React.Component {
                         <CamposTutiFrutti 
                             nombre={word.text}
                             letraRandom={this.state.letraRandom} 
-                            isEditable={this.state.isEditable} 
+                            isEditable={this.state.isEditable}
+                            wordCorrect={this.state.wordCorrect}                             
                         />
                         )
                     }
                 </ScrollView>
-                <TouchableOpacity style={styles.boton} onPress={this.resetearLetras}>                
+                <TouchableOpacity style={styles.boton} onPress={this.getScore}>                
                     <Text>Basta para mí!!!</Text>            
                 </TouchableOpacity>   
             </View>

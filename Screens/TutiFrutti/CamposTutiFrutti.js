@@ -44,11 +44,20 @@ const styles = StyleSheet.create({
 
 export default class CamposTutiFrutti extends React.Component {    
     
-    constructor(props) {
+    constructor(props) { 
+        console.log(props)       
         super(props)
         this.state = {
-            valueText: '',
+            valueText: '',           
         }
+    }
+
+    setScore = () => {
+        if(this.state.valueText.charAt(0) === this.props.letraRandom){            
+            this.props.wordsCorrect = this.props.wordsCorrect + 1
+        }else{
+            this.setState({wordsWrong: this.state.wordsWrong + 1})
+        }       
     }
 
     render() {
@@ -67,6 +76,7 @@ export default class CamposTutiFrutti extends React.Component {
                         placeholder={`Ingrese ${this.props.nombre} con letra ${this.props.letraRandom}`}
                         onChangeText={value => this.setState({valueText: value})}
                         editable={this.props.isEditable}
+                        onBlur={this.setScore}
                     />                                             
                 </View>           
                 <View  style={styles.viewImagen}>  
@@ -81,7 +91,7 @@ export default class CamposTutiFrutti extends React.Component {
                         />
                     : <Image/>
                     }
-                </View>
+                </View>               
             </View> 
               
         )
