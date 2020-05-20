@@ -1,5 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { StyleSheet, View, TextInput, Text, Image } from 'react-native'
+import { incrementCount } from '../../actions/index'
+import { connect } from 'react-redux'
 
 const styles = StyleSheet.create({    
     textTitulo: {
@@ -42,22 +44,26 @@ const styles = StyleSheet.create({
     
 })
 
-export default class CamposTutiFrutti extends React.Component {    
+const mapStateToProps = (state) => {
+    return {cont: state}
+}
+
+const mapDispatchToProps = dispatch => {
+    return {incrementCount: () => dispatch(incrementCount())}
+}
+
+class CamposTutiFrutti extends React.Component {    
     
-    constructor(props) { 
-        console.log(props)       
+    constructor(props) {             
         super(props)
         this.state = {
-            valueText: '',           
+            valueText: '',
+            cont: 0,          
         }
     }
 
-    setScore = () => {
-        if(this.state.valueText.charAt(0) === this.props.letraRandom){            
-            this.props.wordsCorrect = this.props.wordsCorrect + 1
-        }else{
-            this.setState({wordsWrong: this.state.wordsWrong + 1})
-        }       
+    setScore = () => {         
+        this.props.incrementCount()         
     }
 
     render() {
@@ -99,3 +105,9 @@ export default class CamposTutiFrutti extends React.Component {
    
 }
 
+const Campos = connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(CamposTutiFrutti);
+
+export default Campos

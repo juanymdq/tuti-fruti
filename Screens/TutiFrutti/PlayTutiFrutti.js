@@ -1,7 +1,9 @@
 import React from 'react'
 import {ScrollView, StyleSheet, View, Text, TouchableOpacity} from 'react-native'
+import { Provider } from "react-redux";
+import store from "../../store/index";
 
-import CamposTutiFrutti from './CamposTutiFrutti'
+import Campos from './CamposTutiFrutti'
 import {words} from './Words'
 
 const styles = StyleSheet.create({
@@ -32,12 +34,9 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
 })
-
-
-
 export default class PlayTutiFrutti extends React.Component {
 
-    constructor(props) {
+    constructor(props) {         
         super(props)        
         this.state = {
             letraRandom: null,  
@@ -64,6 +63,7 @@ export default class PlayTutiFrutti extends React.Component {
                 if (minutes === 0) {
                     clearInterval(this.myInterval)
                     this.setState({isEditable: false})
+                    console.log(this.props.cont)
                 } else {
                     this.setState(({ minutes }) => ({
                         minutes: minutes - 1,
@@ -81,35 +81,38 @@ export default class PlayTutiFrutti extends React.Component {
     render() { 
         const { minutes, seconds } = this.state       
         return (
-            <View style={styles.container}>
-                <View style={styles.textTitulo}>
-                    <Text style={{fontSize: 26, color: 'grey', textDecorationLine: 'underline'}}>
-                        Vamos a jugar con la letra: {this.state.letraRandom}
-                    </Text>
-                </View>
-                <View style={styles.countdown}>
-                    <Text>
-                        { minutes === 0 && seconds === 0
-                            ? <Text style={{color: 'red', fontSize: 20}}>Tiempo agotado!!!!</Text>
-                            : <Text style={{color: 'green', fontSize: 20}}>Tiempo restante: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>
+            <Provider store={store}>
+                <View>{this.props.cont}</View>
+                <View style={styles.container}>
+                    <View style={styles.textTitulo}>
+                        <Text style={{fontSize: 26, color: 'grey', textDecorationLine: 'underline'}}>
+                            Vamos a jugar con la letra: {this.state.letraRandom}
+                        </Text>
+                    </View>
+                    <View style={styles.countdown}>
+                        <Text>
+                            { minutes === 0 && seconds === 0
+                                ? <Text style={{color: 'red', fontSize: 20}}>Tiempo agotado!!!!</Text>
+                                : <Text style={{color: 'green', fontSize: 20}}>Tiempo restante: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</Text>
+                            }
+                        </Text>
+                    </View>
+                    <ScrollView>                    
+                        {words.map((word) => 
+                            <Campos 
+                                nombre={word.text}
+                                letraRandom={this.state.letraRandom} 
+                                isEditable={this.state.isEditable}
+                                wordCorrect={this.state.wordCorrect} 
+                            />
+                            )
                         }
-                    </Text>
+                    </ScrollView>
+                    <TouchableOpacity style={styles.boton} onPress={this.getScore}>                
+                        <Text>Basta para mí!!!</Text>            
+                    </TouchableOpacity>   
                 </View>
-                <ScrollView>                    
-                    {words.map((word) => 
-                        <CamposTutiFrutti 
-                            nombre={word.text}
-                            letraRandom={this.state.letraRandom} 
-                            isEditable={this.state.isEditable}
-                            wordCorrect={this.state.wordCorrect}                             
-                        />
-                        )
-                    }
-                </ScrollView>
-                <TouchableOpacity style={styles.boton} onPress={this.getScore}>                
-                    <Text>Basta para mí!!!</Text>            
-                </TouchableOpacity>   
-            </View>
+            </Provider>
         )
     }
 }
